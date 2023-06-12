@@ -31,6 +31,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
 
     try {
       const response = await API.post("/api/machine", body);
+
       setMachines((machine) => [...machine, response.data]);
       form.resetFields();
     } catch (error) {
@@ -67,7 +68,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
                   <div className="flex justify-center gap-5 w-full">
                     <Form.Item
                       name="name"
-                      label="Nome"
+                      label="Nome:"
                       required={false}
                       rules={[
                         {
@@ -80,7 +81,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
                     </Form.Item>
                     <Form.Item
                       name="memory"
-                      label="Mémoria"
+                      label="Mémoria:"
                       required={false}
                       rules={[
                         {
@@ -98,7 +99,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
                   <div className="flex justify-center gap-5 w-full">
                     <Form.Item
                       name="vcpu"
-                      label="Vcpu"
+                      label="Vcpu:"
                       required={false}
                       rules={[
                         {
@@ -111,7 +112,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
                     </Form.Item>
                     <Form.Item
                       name="disk"
-                      label="Disco"
+                      label="Disco:"
                       required={false}
                       rules={[
                         {
@@ -130,7 +131,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
                     <h1>Placas de Rede</h1>
                     <Form.Item
                       name="ip"
-                      label="Ip"
+                      label="Ip:"
                       required={false}
                       rules={[
                         {
@@ -143,7 +144,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
                     </Form.Item>
                     <Form.Item
                       name="mac"
-                      label="Endereço Mac"
+                      label="Endereço Mac:"
                       initialValue={""}
                       required={false}
                       rules={[
