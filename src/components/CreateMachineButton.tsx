@@ -57,7 +57,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
             content: (
               <Form
                 form={form}
-                className="form"
+                className=""
                 layout="vertical"
                 onFinish={(values) => {
                   createMachine(values);
