@@ -35,7 +35,7 @@ export default function Home() {
       </div>
       <div className="place-items-center grid grid-cols-[repeat(auto-fit,minmax(21.8rem,1fr))] max-w-[75rem] mx-auto mb-10 gap-y-[3rem] gap-x-[1rem] px-[2rem] services:grid-cols-[repeat(auto-fit,minmax(13rem,1fr))]">
         {machines?.map((item, index) => {
-          return <MachineCard machine={item} key={index} />;
+          return <MachineCard machine={item} key={index} setMachines={setMachines} />;
         })}
       </div>
     </main>

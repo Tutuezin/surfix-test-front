@@ -45,7 +45,14 @@ export default function MachineCard({ machine, setMachines }: Props) {
     };
 
     try {
-      await API.post(`/api/disk/${id}`, body);
+      const response = await API.post(`/api/disk/${id}`, body);
+
+      setMachines((machines) =>
+        machines.map((item) =>
+          item.id === id ? { ...item, disks: [...item.disks, response.data] } : item,
+        ),
+      );
+      form.resetFields();
     } catch (error) {
       console.log(error);
     }
@@ -63,8 +70,18 @@ export default function MachineCard({ machine, setMachines }: Props) {
           incrementSize: newDisk,
         };
 
-        await API.put(`/api/disk/${id}/increment`, body);
+        const response = await API.put(`/api/disk/${id}/increment`, body);
 
+        /* setMachines((machines) =>
+          machines.map((item) =>
+            item.id === machine.id
+              ? {
+                  ...item,
+                  disks: [item.disks.map((item) => (item.id === id ? "" : "")), response.data],
+                }
+              : item,
+          ),
+        ); */
         form.resetFields();
       } else {
         newDisk += -diskSize;
@@ -98,7 +115,13 @@ export default function MachineCard({ machine, setMachines }: Props) {
     };
 
     try {
-      await API.post(`/api/nic/${id}`, body);
+      const response = await API.post(`/api/nic/${id}`, body);
+
+      setMachines((machines) =>
+        machines.map((item) =>
+          item.id === id ? { ...item, nics: [...item.nics, response.data] } : item,
+        ),
+      );
     } catch (error) {
       console.log(error);
     }
