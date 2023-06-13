@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import API from "utils/api";
 
 interface Machine {
+  id: number;
   name: string;
   memory: string;
   vcpu: string;
+  state: boolean;
   disks: { id: number; size: number }[];
-  nics: { id: number; ip: string; macAddress: string };
+  nics: { id: number; ip: string; macAddress: string }[];
 }
 
 export default function Home() {

@@ -72,16 +72,19 @@ export default function MachineCard({ machine, setMachines }: Props) {
 
         const response = await API.put(`/api/disk/${id}/increment`, body);
 
-        /* setMachines((machines) =>
+        setMachines((machines) =>
           machines.map((item) =>
             item.id === machine.id
               ? {
                   ...item,
-                  disks: [item.disks.map((item) => (item.id === id ? "" : "")), response.data],
+                  disks: item.disks.map((disk) =>
+                    disk.id === id ? { ...disk, size: newDisk + disk.size } : disk,
+                  ),
                 }
               : item,
           ),
-        ); */
+        );
+
         form.resetFields();
       } else {
         newDisk += -diskSize;
@@ -91,6 +94,20 @@ export default function MachineCard({ machine, setMachines }: Props) {
         };
 
         await API.put(`/api/disk/${id}/decrement`, body);
+
+        setMachines((machines) =>
+          machines.map((item) =>
+            item.id === machine.id
+              ? {
+                  ...item,
+                  disks: item.disks.map((disk) =>
+                    disk.id === id ? { ...disk, size: newDisk + disk.size } : disk,
+                  ),
+                }
+              : item,
+          ),
+        );
+
         form.resetFields();
       }
     } catch (error) {
@@ -101,6 +118,14 @@ export default function MachineCard({ machine, setMachines }: Props) {
   const deleteDisk = async (id: number) => {
     try {
       await API.delete(`/api/disk/${id}`);
+
+      setMachines((machines) =>
+        machines.map((item) =>
+          item.id === machine.id
+            ? { ...item, disks: item.disks.filter((disk) => disk.id !== id) }
+            : item,
+        ),
+      );
     } catch (error) {
       console.log(error);
     }
@@ -130,6 +155,13 @@ export default function MachineCard({ machine, setMachines }: Props) {
   const deleteNic = async (id: number) => {
     try {
       await API.delete(`/api/nic/${id}`);
+      setMachines((machines) =>
+        machines.map((item) =>
+          item.id === machine.id
+            ? { ...item, nics: item.nics.filter((nic) => nic.id !== id) }
+            : item,
+        ),
+      );
     } catch (error) {
       console.log(error);
     }

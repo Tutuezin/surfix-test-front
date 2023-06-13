@@ -7,6 +7,16 @@ interface Props {
 }
 
 interface Machine {
+  id: number;
+  name: string;
+  memory: string;
+  vcpu: string;
+  state: boolean;
+  disks: { id: number; size: number }[];
+  nics: { id: number; ip: string; macAddress: string }[];
+}
+
+interface valueMachineBody {
   name: string;
   memory: string;
   vcpu: string;
@@ -19,7 +29,7 @@ export default function CreateMachineButton({ setMachines }: Props) {
   const [form] = Form.useForm();
   const { confirm } = Modal;
 
-  const createMachine = async (values: Machine) => {
+  const createMachine = async (values: valueMachineBody) => {
     const body = {
       name: values.name,
       memory: values.memory,
