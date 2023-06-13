@@ -1,0 +1,21 @@
+version: "3"
+services:
+  front:
+    container_name: front
+    #build: .
+    image: nginx:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - ./dist:/opt/front
+      - ./nginx.conf:/etc/nginx/nginx.conf
+  database:
+    container_name: surfixdb
+    image: postgres:latest
+    ports:
+      - 8888:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: surfix
+    volumes:
+      - ./database:/var/lib/postgresql/data
